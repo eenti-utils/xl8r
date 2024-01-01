@@ -36,6 +36,7 @@ Summarizing the "english" to "spanish" translation, in _spoke and hub_ terms:
 - to "spanish": (`Hub`) convert value `int` 4 to value `string` "cuatro" (`Point P3`)
 
 </details>
+
 ```mermaid
 graph LR
   D1(Content Data<br>Px) --> A((Point<br>Px))
