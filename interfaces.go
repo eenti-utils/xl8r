@@ -1,3 +1,4 @@
+// Package xl8r facilitates development of "spoke and hub" paradigm translators
 package xl8r
 
 type Interpreter[P, H any] interface {
