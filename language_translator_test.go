@@ -16,12 +16,12 @@ import (
 /****************************************************************************************
  * The "Spoke-N-Hub Translator" - Translate from any language to any other language ... *
  *                                                                                      *
- * But don't get too exicited, the codecs defined here are just ... "simpletons"        *
+ * But don't get too excited, the codecs defined here are just ... "simpletons"         *
  *  as they only translate the names (and in some cases symbols) of numbers             *
  *  from language to language.                                                          *
  *                                                                                      *
  * Adding a new language codec to the collective would provide translatability          *
- *  between the new language, and all previouly defined langages...                     *
+ *  between the new language, and all previously defined languages...                   *
  *                                                                                      *
  *  (apologies to Sci-Fi fans, as that might sound a bit "Borg-ish")                    *
  *                                                                                      *
