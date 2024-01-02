@@ -63,9 +63,9 @@ In theory, translation between any two points within the system is possible.
 
 ### Spokes:
 
-The spokes in the xl8r package handle:
-- _encoding_ - converting Content Data into Hub Data
-- _decoding_ - converting Hub Data into Content Data
+The spokes in the xl8r package are called _codecs_, and handle:
+- _encoding_ - converting Content Data values to Hub Data values
+- _decoding_ - converting Hub Data to Content Data values
 
 ```mermaid
 graph LR
