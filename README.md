@@ -2,7 +2,7 @@
 
 The xl8r package is a library written in Go that facilitates development of "spoke and hub" translators.
 
-**Spoke and Hub:**
+### Spoke and Hub:
 ```mermaid
 flowchart TB;
   X((Point<br>Px))<-->H(((Hub)));
@@ -61,7 +61,7 @@ graph LR
 
 In theory, translation between any two points within the system is possible.
 
-**Spokes:**
+### Spokes:
 
 The spokes in the xl8r package handle:
 - _encoding_ - converting Content Data into Hub Data
@@ -97,6 +97,40 @@ type Codec[P, H any] interface {
 
 In addition to the xl8r package-provided struct `xl8r.Spoke[P,H any]`, users are free to implement the `xl8r.Codec[P,H any]` interface as desired.
 
+### Content and Hub Data:
 
+**Content Data** is any data that:
+- comes inbound from an Origin Point within the system (ie. a value to be translated)
+- goes outbound from a Destination Point within the system (ie. the resulting value of something translated)
 
+The _data type_ for content data:
+- can be anything
+- is the same for _all_ Origin and Destination Points within the system
+- may differ from (but need not be different from) the hub data type
+- supports the diverse values of all points within the system
+- is represented generically in xl8r code as the letter **P**
 
+**Hub Data** is the pivot between all points within the system.
+
+The _data type_ for hub data:
+- can be anything
+- supports values that are commonly "understood" by all points within the system
+- is represented generically in xl8r code as the letter **H**
+  
+```go
+	type myContentDataType string
+	type myHubDataType int
+
+	myAwsomeSpoke := &xl8r.Spoke[myContentDataType, myHubDataType] {
+		Id: "awesomness"
+		Enc: func(v myContentDataType, opts0 ...Opts) (r myHubDataType, e error) {
+			// define the  greatest encoder, here...
+		},
+		Dec: (v myHubDataType, opts0 ...Opts) (r myContentDataType, e error) {
+			// define the  greatest decoder, here...
+		},
+		Check: (v myContentDataType) (r bool) {
+			// define the content data evaluator, here...
+		},
+	}
+```
