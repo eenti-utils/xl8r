@@ -40,7 +40,43 @@ Some examples being:
 
   fmt.Sprintf("%v",result)  // one two three four five
 
+  // user-defined options may also be along passed to codecs
+  // codecs can be designed to honor options when passed-in
+  var useKanji, useOnyomi xl8r.Opts
+  // define options here ...
+
+  result2, toErr2 := translateLang.To("japanese","english","one two three four five", useOnyomi)
+  if toErr2 != nil {
+    panic(toErr2)  // something failed
+  }
+
+  fmt.Sprintf("%v",result2)  // ichi ni san shi go
+
+  result3, toErr3 := translateLang.To("japanese","english","one two three four five", useKanji)
+  if toErr3 != nil {
+    panic(toErr3)  // something failed
+  }
+
+  fmt.Sprintf("%v",result3)  // 一 二 三 四 五
+
 ```
+
+In the example above, the translator was instantiated with three codecs.
+
+Each codec is responsible for:
+- converting its own content data into hub data
+- converting hub data into its own content data
+
+Content data can be converted between any of the three codecs.
+
+**Scalability:**
+Adding a fourth and fifth codec, makes translations possible between all five codecs, and so forth.
+
+Note the xl8r language translater unit tests provide more detailed examples for usage.
+
+xl8r solves the more mundane problem of code organization, when writing translator or converter utilities.
+
+The more interesting challenge of performing the conversions for a particular use case, are left to developers.
 
 ### Spoke and Hub:
 ```mermaid
