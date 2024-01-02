@@ -76,7 +76,7 @@ graph LR
   style P fill:#F0F0F0,stroke:black,color:black
 ```
 
-Any object implementing the `xl8r.Codec[P,H any]` interface, is considered an xl8r spoke.
+Any object implementing the `xl8r.Codec[P,H any]` interface, is considered by xl8r to be a spoke.
 
 ```go
 // a Codec handles conversion of
