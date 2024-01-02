@@ -72,7 +72,7 @@ Content data can be converted between any of the three codecs.
 **Scalability:**
 Adding a fourth and fifth codec, makes translations possible between all five codecs, and so forth.
 
-Note the xl8r language translater unit tests provide more detailed examples for usage.
+Note the xl8r language translator unit tests provide more detailed examples for usage.
 
 xl8r solves the more mundane problem of code organization, when writing translator or converter utilities.
 
