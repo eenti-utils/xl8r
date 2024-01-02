@@ -59,13 +59,44 @@ graph LR
   style Dn fill:#F0F0F0,stroke:#00F000,color:#00F000
 ```
 
-In 
+In theory, translation between any two points within the system is possible.
+
+**Spokes:**
+
+The spokes in the xl8r package handle:
+- _encoding_ - converting Content Data into Hub Data
+- _decoding_ - converting Hub Data into Content Data
 
 ```mermaid
 graph LR
-  A((Point)) -- Encode --> H(((Hub Data)))
-  H -- Decode --> A((Point))
+  P((Point)) -- Encode --> H(((Hub Data)))
+  H -- Decode --> P
 
   style H fill:#FFD9B8,stroke:black,color:black
+  style P fill:#F0F0F0,stroke:black,color:black
 ```
+
+Any object implementing the `xl8r.Codec[P,H any]` interface, is considered an xl8r spoke.
+
+```go
+// a Codec handles conversion of
+//   - origin content to hub data (encoding)
+//   - hub data to destination content (decoding)
+type Codec[P, H any] interface {
+	// name of the codec
+	Name() string
+	// function that converts origin content into hub data (ie. the encoder)
+	Encode(v P, opts0 ...Opts) (r H, e error)
+	// function that converts hub data into destination content (ie. the decoder)
+	Decode(v H, opts0 ...Opts) (r P, e error)
+	// function that returns bool true, if the specified content
+	// is processable by the given encoder function
+	Evaluate(v P) (r bool)
+}
+```
+
+In addition to the xl8r package-provided struct `xl8r.Spoke[P,H any]`, users are free to implement the `xl8r.Codec[P,H any]` interface as desired.
+
+
+
 
