@@ -72,7 +72,7 @@ func TestTellMeIn_X_Language(t *testing.T) {
 
 	oneToFive := "one two three four five"
 	oneToFiveKanji := "一 二 三 四 五"
-
+	numerals := "0 1 2 3 4 5 6 7 8 9 10"
 	tt := []struct {
 		thingToSay, languageToUse, expected string
 		expectedErr                         error
@@ -93,6 +93,13 @@ func TestTellMeIn_X_Language(t *testing.T) {
 		{thingToSay: oneToFiveKanji, languageToUse: "Spanish", expected: "uno dos tres cuatro cinco"},
 		{thingToSay: oneToFiveKanji, languageToUse: "Ga", expected: "ekome enyɔ etɛ ejwɛ enumɔ"},
 		{thingToSay: oneToFiveKanji, languageToUse: "Hawaiian", expected: "῾ekahi ῾elua ῾ekolu ῾ehā ῾elima"},
+		{thingToSay: numerals, languageToUse: "English", expected: "zero one two three four five six seven eight nine ten"},
+		{thingToSay: numerals, languageToUse: "Haitian Creole", expected: "zèro en de twa kat senk sis sèt wit nèf dis"},
+		{thingToSay: numerals, languageToUse: "Klingon", expected: "pagh wa’ cha’ wej loS vagh jav Soch chorgh Hut wa’maH"},
+		{thingToSay: numerals, languageToUse: "Japanese", expected: "rei ichi ni san shi go roku nana hachi kyu ju"},
+		{thingToSay: numerals, languageToUse: "Spanish", expected: "cero uno dos tres cuatro cinco seis siete ocho nueve diez"},
+		{thingToSay: numerals, languageToUse: "Ga", expected: "ekobɛ ekome enyɔ etɛ ejwɛ enumɔ ekpaa kpawo kpaanyɔ nɛɛhu nyɔŋma"},
+		{thingToSay: numerals, languageToUse: "Hawaiian", expected: "῾ole ῾ekahi ῾elua ῾ekolu ῾ehā ῾elima ῾eono ῾ehiku ῾ewalu ῾eiwa ῾umi"},
 	}
 
 	for i, tx := range tt {

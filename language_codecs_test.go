@@ -81,8 +81,24 @@ func testFixQuoteChars(s, replaceWith string,replacing ... string) (r string) {
 	return
 }
 
+func testAddNumericEncoding(encMap map[string]int) {
+	if encMap == nil {
+		return
+	}
+
+	//make sure numerals are encodable ... 
+	for i :=0 ; i < 11 ; i++ {
+		hI := fmt.Sprint(i)
+		if _, hasAlready := encMap[hI]; ! hasAlready {
+			encMap[hI]=i
+		}
+	}
+}
+
 // make a *Spoke (ie. a codec) using the specified name and helper maps for encoding and decoding values
 func fetchXSpoke(id string, encMap map[string]int, decMap map[int]string) (r *Spoke[myLanguageContentType, myLanguageHubDataType]) {
+	
+	testAddNumericEncoding(encMap)
 
 	eval := func(v myLanguageContentType) bool {
 		return testContentWithEncMap(v, encMap)
