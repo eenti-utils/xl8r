@@ -31,7 +31,9 @@ var definedCodecs = []Codec[myLanguageContentType, myLanguageHubDataType]{
 	// order is not important here
 	// just using alphabetical for readability
 	fetchEngCodec(),           // English
+	fetchGaCodec(),            // Ga
 	fetchHaitianCreoleCodec(), // Haitian Creole
+	fetchHawaiianCodec(),      //Hawaiian
 	fetchKlingonCodec(),       // Klingon
 	fetchJapaneseCodec(),      // Japanese
 	fetchSpanishCodec(),       // Spanish
@@ -80,6 +82,8 @@ func TestTellMeIn_X_Language(t *testing.T) {
 		{thingToSay: oneToFive, languageToUse: "Klingon", expected: "wa’ cha’ wej loS vagh"},
 		{thingToSay: oneToFive, languageToUse: "Japanese", expected: "ichi ni san shi go"},
 		{thingToSay: oneToFive, languageToUse: "Spanish", expected: "uno dos tres cuatro cinco"},
+		{thingToSay: oneToFive, languageToUse: "Ga", expected: "ekome enyɔ etɛ ejwɛ enumɔ"},
+		{thingToSay: oneToFive, languageToUse: "Hawaiian", expected: "῾ekahi ῾elua ῾ekolu ῾ehā ῾elima"},
 		{thingToSay: oneToFive, languageToUse: "FooBarBaz", expected: "", expectedErr: fmt.Errorf(`unknown language [ FooBarBaz ]`)},
 		{thingToSay: "FooBar", languageToUse: "English", expected: "", expectedErr: fmt.Errorf(`no available interpreter for "FooBar"`)},
 		{thingToSay: oneToFiveKanji, languageToUse: "English", expected: "one two three four five"},
@@ -87,6 +91,8 @@ func TestTellMeIn_X_Language(t *testing.T) {
 		{thingToSay: oneToFiveKanji, languageToUse: "Klingon", expected: "wa’ cha’ wej loS vagh"},
 		{thingToSay: oneToFiveKanji, languageToUse: "Japanese", expected: "ichi ni san shi go"},
 		{thingToSay: oneToFiveKanji, languageToUse: "Spanish", expected: "uno dos tres cuatro cinco"},
+		{thingToSay: oneToFiveKanji, languageToUse: "Ga", expected: "ekome enyɔ etɛ ejwɛ enumɔ"},
+		{thingToSay: oneToFiveKanji, languageToUse: "Hawaiian", expected: "῾ekahi ῾elua ῾ekolu ῾ehā ῾elima"},
 	}
 
 	for i, tx := range tt {
@@ -157,6 +163,7 @@ func TestLangEncode(t *testing.T) {
 		{from: "spanish", text: "uno dos tres cuatro", expected: []int{1, 2, 3, 4}},
 		{from: "haitian creole", text: "en de twa kat", expected: []int{1, 2, 3, 4}},
 		{from: "klingon", text: "wa' cha' wej loS", expected: []int{1, 2, 3, 4}},
+		{from: "ga", text: "ekome enyɔ etɛ ejwɛ", expected: []int{1, 2, 3, 4}},
 	}
 
 	for i, tx := range tt {
@@ -188,6 +195,7 @@ func TestLangDecode(t *testing.T) {
 		{to: "spanish", expected: "uno dos tres cuatro", hubDataValue: []int{1, 2, 3, 4}},
 		{to: "haitian creole", expected: "en de twa kat", hubDataValue: []int{1, 2, 3, 4}},
 		{to: "klingon", expected: "wa’ cha’ wej loS", hubDataValue: []int{1, 2, 3, 4}},
+		{to: "hawaiian", expected: "῾ekahi ῾elua ῾ekolu ῾ehā", hubDataValue: []int{1, 2, 3, 4}},
 	}
 
 	for i, tx := range tt {

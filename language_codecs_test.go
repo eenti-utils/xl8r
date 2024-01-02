@@ -73,6 +73,14 @@ func testDecodeUsingMap(v myLanguageHubDataType, decMap map[int]string) (r myLan
 	return
 }
 
+func testFixQuoteChars(s, replaceWith string,replacing ... string) (r string) {
+	r = s
+	for _, replaceable := range replacing {
+		r = strings.ReplaceAll(r,replaceable,replaceWith)
+	}
+	return
+}
+
 // make a *Spoke (ie. a codec) using the specified name and helper maps for encoding and decoding values
 func fetchXSpoke(id string, encMap map[string]int, decMap map[int]string) (r *Spoke[myLanguageContentType, myLanguageHubDataType]) {
 
@@ -435,7 +443,8 @@ func fetchKlingonCodec() (r Codec[myLanguageContentType, myLanguageHubDataType])
 			act = f[0]
 		}
 		for _, word := range v.toWords() {
-			word = strings.ReplaceAll(strings.ReplaceAll(strings.TrimSpace(word), "'", "’"), "`", "’")
+			word = testFixQuoteChars(strings.TrimSpace(word),"’","'","`")
+			// word = strings.ReplaceAll(strings.ReplaceAll(strings.TrimSpace(word), "'", "’"), "`", "’")
 			if _, exists := fromKlingonMap[word]; !exists {
 				act(word, false)
 				return false
@@ -465,6 +474,120 @@ func fetchKlingonCodec() (r Codec[myLanguageContentType, myLanguageHubDataType])
 
 	spoke.Check = func(v myLanguageContentType) bool {
 		return testContentWithKlingonEncMap(v)
+	}
+
+	return spoke
+}
+
+// generate the codec for Ga numbers
+func fetchGaCodec() (r Codec[myLanguageContentType, myLanguageHubDataType]) {
+	return fetchXSpoke(
+		"ga",
+		map[string]int{
+			"ekobɛ":  0,
+			"ekome":   1,
+			"enyɔ":   2,
+			"etɛ": 3,
+			"ejwɛ":  4,
+			"enumɔ":  5,
+			"ekpaa":   6,
+			"kpawo": 7,
+			"kpaanyɔ": 8,
+			"nɛɛhu":  9,
+			"nyɔŋma":   10,
+		},
+		map[int]string{
+			0:  "ekobɛ",
+			1:  "ekome",
+			2:  "enyɔ",
+			3:  "etɛ",
+			4:  "ejwɛ",
+			5:  "enumɔ",
+			6:  "ekpaa",
+			7:  "kpawo",
+			8:  "kpaanyɔ",
+			9:  "nɛɛhu",
+			10: "nyɔŋma",
+		},
+	)
+}
+
+// generate the codec for Ga numbers
+func fetchHawaiianCodec() (r Codec[myLanguageContentType, myLanguageHubDataType]) {
+
+	fromHawaiianMap := map[string]int{
+		"῾ole":   0,
+		"῾ekahi":    1,
+		"akahi": 1,
+		"῾elua":   2,
+		"῾ekolu":    3,
+		"῾ehā":    4,
+		"῾elima":   5,
+		"῾alima": 5,
+		"῾eono":    6,
+		"῾ehiku":   7,
+		"῾ewalu": 8,
+		"῾awalu": 8,
+		"῾eiwa":    9,
+		"iwa": 9,
+		"῾aiwa": 9,
+		"῾umi": 10,
+	}
+
+	spoke := fetchXSpoke(
+		"hawaiian",
+		fromHawaiianMap,
+		map[int]string{
+			0:  "῾ole",
+			1:  "῾ekahi",
+			2:  "῾elua",
+			3:  "῾ekolu",
+			4:  "῾ehā",
+			5:  "῾elima",
+			6:  "῾eono",
+			7:  "῾ehiku",
+			8:  "῾ewalu",
+			9:  "῾eiwa",
+			10: "῾umi",
+		},
+	)
+	testContentWithHawaiianEncMap := func(v myLanguageContentType, f ...func(word string, wordOK bool)) bool {
+		act := func(_ string, _ bool) {}
+
+		if len(f) > 0 {
+			act = f[0]
+		}
+		for _, word := range v.toWords() {
+			word = strings.ToLower(testFixQuoteChars(strings.TrimSpace(word),"῾","'","’","`"))
+			if _, exists := fromHawaiianMap[word]; !exists {
+				act(word, false)
+				return false
+			}
+			act(word, true)
+		}
+		return true
+	}
+
+	//use a custom encoder and a evaluater that handle case sensitivity differently than
+	// the default encoder, provided by the fetchXSpoke(...) function
+	spoke.Enc = func(v myLanguageContentType, opts0 ...Opts) (r myLanguageHubDataType, e error) {
+		if len(v) == 0 {
+			return
+		}
+		// create the hub data, from the content, using the encoder map
+		testContentWithHawaiianEncMap(v, func(word string, wordOK bool) {
+			switch wordOK {
+			case true:
+				r = append(r, fromHawaiianMap[word])
+			default:
+				e = fmt.Errorf("unknown word: '%s'", word)
+			}
+		})
+		return
+	}
+
+	spoke.Check = func(v myLanguageContentType) bool {
+		return testContentWithHawaiianEncMap(v)
 	}
 
 	return spoke
