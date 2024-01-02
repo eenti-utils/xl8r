@@ -2,6 +2,46 @@
 
 The xl8r package is a library written in Go that facilitates development of "spoke and hub" translators.
 
+### Ideal Use Case:
+
+xl8r is ideal for building scalable translator utilities to convert values of any type.
+
+Some examples being:
+- language text translators
+- duration format converters
+- currency converters
+
+### Usage Example:
+
+```go
+  /***********************************
+   * assuming user-defined types for *
+   *   - LanguageData                *
+   *   - CommonHubData               *
+   ***********************************/
+
+  var englishCodec, spanishCodec, japaneseCodec xl8r.Codec[LanguageData, CommonHubData]
+  // define codecs ...
+  // note that each codec has a unique name
+
+  var err error
+  var translateLang xl8r.Interpreter[LanguageData, CommonHubData]
+  translateLang, err = xl8r.New(englishCodec, spanishCodec, japaneseCodec)
+
+  if err != nil {
+    panic(err)  // something failed
+  }
+
+  // assuming here that one of the codecs is named "english" and the other is named "japanese"
+  result, toErr := translateLang.To("english","japanese","一 二 三 四 五")
+  if toErr != nil {
+    panic(toErr)  // something failed
+  }
+
+  fmt.Sprintf("%v",result)  // one two three four five
+
+```
+
 ### Spoke and Hub:
 ```mermaid
 flowchart TB;
