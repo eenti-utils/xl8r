@@ -114,7 +114,7 @@ The _data type_ for content data:
 
 The _data type_ for hub data:
 - can be anything
-- supports values that are commonly "understood" by all points within the system
+- supports values that are understood by all points within the system
 - is represented generically in xl8r code as the letter **H**
   
 ```go
