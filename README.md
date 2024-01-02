@@ -122,7 +122,7 @@ The _data type_ for hub data:
 	type myHubDataType int
 
 	myAwsomeSpoke := &xl8r.Spoke[myContentDataType, myHubDataType] {
-		Id: "awesomeness"
+		Id: "awesomeness",
 		Enc: func(v myContentDataType, opts0 ...Opts) (r myHubDataType, e error) {
 			// define the  greatest encoder, here...
 		},
