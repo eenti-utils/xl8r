@@ -122,7 +122,7 @@ The _data type_ for hub data:
 	type myHubDataType int
 
 	// create a Codec to process myContentDataType and myHubDataType -- xl8r.Spoke[P,H any]
-	myAwsomeCodec := &xl8r.Spoke[myContentDataType, myHubDataType] {
+	myAwesomeCodec := &xl8r.Spoke[myContentDataType, myHubDataType] {
 		Id: "awesomeness",	// a unique name, within the system ...
 		Enc: func(v myContentDataType, opts0 ...Opts) (r myHubDataType, e error) {
 			// define the  greatest encoder, here...
