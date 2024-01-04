@@ -27,7 +27,7 @@ import (
  *                                                                                      *
  ****************************************************************************************/
 
-var definedCodecs = []Codec[myLanguageContentType, myLanguageHubDataType]{
+var definedLangTestCodecs = []Codec[myLanguageContentType, myLanguageHubDataType]{
 	// order is not important here
 	// just using alphabetical for readability
 	fetchEngCodec(),           // English
@@ -44,7 +44,7 @@ func TestTellMeIn_X_Language(t *testing.T) {
 
 	// a demo function that utilizes our Spoke-N-Hub Translator ...
 	tellMeIn := func(requestedlanguage string, stuff string) (r string, e error) {
-		spokeNHubTranslateLang, err := New(definedCodecs...)
+		spokeNHubTranslateLang, err := New(definedLangTestCodecs...)
 		if err != nil {
 			e = err
 			return
@@ -117,7 +117,7 @@ func TestTellMeIn_X_Language(t *testing.T) {
 
 func TestTranslateLang(t *testing.T) {
 
-	spokeNHubTranslateLang, err := New(definedCodecs...)
+	spokeNHubTranslateLang, err := New(definedLangTestCodecs...)
 	//spokeNHubTranslateLang, err := New[myPointDataType,myHubDataType](definedCodecs...)	//alternately
 
 	assrtNotNil(t, spokeNHubTranslateLang)
@@ -133,7 +133,7 @@ func TestTranslateLang(t *testing.T) {
 }
 
 func TestLangOrigins(t *testing.T) {
-	spokeNHubTranslateLang, err := New(definedCodecs...)
+	spokeNHubTranslateLang, err := New(definedLangTestCodecs...)
 	assrtNotNil(t, spokeNHubTranslateLang)
 	assrtNil(t, err)
 
@@ -156,7 +156,7 @@ func TestLangOrigins(t *testing.T) {
 }
 
 func TestLangEncode(t *testing.T) {
-	spokeNHubTranslateLang, err := New(definedCodecs...)
+	spokeNHubTranslateLang, err := New(definedLangTestCodecs...)
 	assrtNotNil(t, spokeNHubTranslateLang)
 	assrtNil(t, err)
 	tt := []struct {
@@ -184,7 +184,7 @@ func TestLangEncode(t *testing.T) {
 }
 
 func TestLangDecode(t *testing.T) {
-	spokeNHubTranslateLang, err := New(definedCodecs...)
+	spokeNHubTranslateLang, err := New(definedLangTestCodecs...)
 	assrtNotNil(t, spokeNHubTranslateLang)
 	assrtNil(t, err)
 
@@ -224,7 +224,7 @@ func TestLangDecode(t *testing.T) {
 
 func TestTranslations(t *testing.T) {
 
-	spokeNHubTranslateLang, err := New(definedCodecs...)
+	spokeNHubTranslateLang, err := New(definedLangTestCodecs...)
 	assrtNotNil(t, spokeNHubTranslateLang)
 	assrtNil(t, err)
 
