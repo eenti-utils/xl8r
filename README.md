@@ -9,7 +9,7 @@ xl8r is ideal for building scalable translator utilities to convert values of an
 Some examples being:
 - language text translators
 - duration format converters
-- currency converters
+- base converters
 
 ### Usage Example:
 
