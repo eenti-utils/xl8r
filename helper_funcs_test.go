@@ -38,7 +38,7 @@ func assrtEqual(t *testing.T, oe, oa any, msgAndArgs0 ...any) {
 		t.Errorf("expected values to be equal, but\n\texpected value was %v\n\tactual value was %v", oe, oa)
 		return
 	}
-	failTest(t, msgAndArgs0)
+	failTest(t, msgAndArgs0...)
 }
 
 func assrtEqualAny(t *testing.T, oe0 []any, oa any, msgAndArgs0 ...any) {
@@ -56,7 +56,7 @@ func assrtEqualAny(t *testing.T, oe0 []any, oa any, msgAndArgs0 ...any) {
 		t.Errorf("expected value to equal one of %v, but\n\tactual value was %v", oe0, oa)
 		return
 	}
-	failTest(t, msgAndArgs0)
+	failTest(t, msgAndArgs0...)
 }
 
 func assrtFalse(t *testing.T, o any, msgAndArgs0 ...any) {
@@ -69,7 +69,7 @@ func assrtFalse(t *testing.T, o any, msgAndArgs0 ...any) {
 		t.Errorf("expected bool false, but actual value was %v", o)
 		return
 	}
-	failTest(t, msgAndArgs0)
+	failTest(t, msgAndArgs0...)
 }
 
 func assrtTrue(t *testing.T, o any, msgAndArgs0 ...any) {
@@ -82,7 +82,7 @@ func assrtTrue(t *testing.T, o any, msgAndArgs0 ...any) {
 		t.Errorf("expected bool true, but actual value was %v", o)
 		return
 	}
-	failTest(t, msgAndArgs0)
+	failTest(t, msgAndArgs0...)
 }
 
 func assrtNil(t *testing.T, o any, msgAndArgs0 ...any) {
@@ -95,7 +95,7 @@ func assrtNil(t *testing.T, o any, msgAndArgs0 ...any) {
 		t.Errorf("expected nil, but actual value was %v", o)
 		return
 	}
-	failTest(t, msgAndArgs0)
+	failTest(t, msgAndArgs0...)
 }
 
 func assrtNotNil(t *testing.T, o any, msgAndArgs0 ...any) {
@@ -108,5 +108,5 @@ func assrtNotNil(t *testing.T, o any, msgAndArgs0 ...any) {
 		t.Errorf("expected non-nil, but actual value was nil")
 		return
 	}
-	failTest(t, msgAndArgs0)
+	failTest(t, msgAndArgs0...)
 }
